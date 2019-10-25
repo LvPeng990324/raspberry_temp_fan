@@ -1,0 +1,2 @@
+# raspberry_temp_fan
+可以根据CPU温度控制树莓派散热风扇开关的脚本
