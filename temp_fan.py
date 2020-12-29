@@ -20,12 +20,20 @@ def fan_stop():
     GPIO.output(pin, False)
 
 
+# 从命令行参数获取配置文件路径
+# 判断参数列表长度，看是否提供了配置文件目录
+argv_list = sys.argv
+if len(argv_list) != 2:
+    # 如果参数列表长度不是2，表明给的参数不止一个或没给参数，报错提示并退出
+    raise '参数长度不正确，请给出仅一个配置文件路径参数，如果路径含有空格请使用单/双引号包裹'
+# 取出配置文件路径
+config_path = argv_list[1]
+
 while True:
     file = open('/sys/class/thermal/thermal_zone0/temp')
     temp = (int)(file.read())
     file.close()
     
-    config_path = '/home/pi/workplace/utils/temp_fan/fan.conf'
     config.read(config_path)
 
     if config.getboolean('force', 'disabled'):
